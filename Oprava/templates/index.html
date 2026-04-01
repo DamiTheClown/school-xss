@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <title>Hlášení závad - ZABEZPEČENO</title>
+    <style>
+        body { font-family: sans-serif; max-width: 800px; margin: 40px auto; }
+        .admin-panel { background: #d4edda; border: 1px solid #28a745; padding: 15px; border-radius: 5px; }
+        .message { border-bottom: 1px solid #eee; padding: 10px 0; }
+        code { background: #eee; padding: 2px 5px; }
+    </style>
+</head>
+<body>
+    <h1>Hlášení závad</h1>
+
+    {% if is_admin %}
+    <div class="admin-panel">
+        <h2>🛡️ Administrativní zóna</h2>
+        <p>Váš Flag: <code>{{ flag }}</code></p>
+    </div>
+    {% endif %}
+
+    <div class="user-panel">
+        <p>Role: <strong>{{ "Admin" if is_admin else "Uživatel" }}</strong></p>
+
+        <form action="/post" method="POST">
+            <textarea name="content" rows="3" style="width:100%" placeholder="Popište závadu..."></textarea><br>
+            <button type="submit">Odeslat</button>
+        </form>
+
+        <hr>
+        <p>Ve frontě: {{ queue_info }}</p>
+
+        <h3>Historie:</h3>
+        <div class="messages">
+            {{ msghtml }}
+        </div>
+    </div>
+</body>
+</html>
